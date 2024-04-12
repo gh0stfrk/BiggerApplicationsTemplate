@@ -32,10 +32,11 @@ async def get_user_by_id_(user_id: int, db: Session = Depends(get_db)):
     user = get_user_by_id(user_id, db)
     if not user:
         raise HTTPException(status_code=404, detail="User not found")
-    return user
+    return UserResponse(**user.__dict__)
 
 @router.post("/", response_model=UserResponse, status_code=201)
 async def create_user_(user: UserSchema, db: Session = Depends(get_db)):
     if not is_unique_username(user.username, db):
         raise HTTPException(status_code=400, detail="Username already exists")
-    return create_user(user, db)
+    created_user = create_user(user, db)
+    return UserResponse(**created_user.__dict__)

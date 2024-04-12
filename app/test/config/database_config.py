@@ -20,10 +20,10 @@ def override_get_db():
 
 
 def configure_test_database(app):
-    app.dependency_overrides[get_db] = override_get_db
-    
     from ...src.domain.user.models import User
     Base.metadata.create_all(bind=engine)
+    
+    app.dependency_overrides[get_db] = override_get_db
 
 
 def drop_test_database():

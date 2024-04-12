@@ -34,18 +34,18 @@ async def home():
 
 # Exception Handlers 
 
-@app.exception_handler(RequestValidationError)
-async def validation_exception_handler(request: Request, exc: RequestValidationError):
-    details = exc.errors()
-    custom_error = []
-    for error in details:
-        custom_error.append(
-            {
-                "field": error['loc'],
-                "message": error['msg']
-            }
-        )
-    return JSONResponse(
-        status_code=422,
-        content=jsonable_encoder({"detail": custom_error})
-    )
+# @app.exception_handler(RequestValidationError)
+# async def validation_exception_handler(request: Request, exc: RequestValidationError):
+#     details = exc.errors()
+#     custom_error = []
+#     for error in details:
+#         custom_error.append(
+#             {
+#                 "field": error['loc'],
+#                 "message": error['msg']
+#             }
+#         )
+#     return JSONResponse(
+#         status_code=fastapi.exceptions.ResponseValidationError422,
+#         content=jsonable_encoder({"detail": custom_error})
+#     )

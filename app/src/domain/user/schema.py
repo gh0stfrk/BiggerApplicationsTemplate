@@ -20,8 +20,8 @@ class UserSchema(BaseModel):
         return v
 
 class UserResponse(BaseModel):
-    username: str
     id: int
+    username: str
     created_at: datetime
     
     class Config:
