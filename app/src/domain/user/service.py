@@ -2,15 +2,16 @@ from sqlalchemy.orm import Session
 from typing import List
 from .models import User
 from .schema import UserSchema, UserUpdate
+from ...utils import create_user_dir, hash_password
 
 
 def create_user(user: UserSchema, db: Session) -> User:
-    db_user = User(username=user.username, password=user.password)
+    db_user = User(username=user.username, password=hash_password(user.password))
     db.add(db_user)
     db.commit()
     db.refresh(db_user)
+    create_user_dir(user.username)
     return db_user
-
 
 def get_user_by_username(username: str, db: Session) -> User:
     return db.query(User).filter(User.username == username, User.is_deleted == False).first()

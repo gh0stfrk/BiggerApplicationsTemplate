@@ -30,3 +30,8 @@ class UserResponse(BaseModel):
 class UserUpdate(BaseModel):
     username: str | None = None
     password: str | None = None
+
+
+class Token(BaseModel):
+    access_token: str
+    token_type: str
